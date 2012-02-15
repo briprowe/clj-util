@@ -1,6 +1,7 @@
 (ns clj-util.core
   (:require [clojure.java.io :as io]
-            [clojure.string :as str]))
+            [clojure.string :as str])
+  (:import [java.util Arrays]))
 
 
 (defn encode-utf8
@@ -52,9 +53,7 @@ return a map containing those pairs. "
 
 (defn array=
   [as bs]
-  (if (= (alength as) (alength bs))
-    (= (count (take-while identity (map = (seq as) (seq bs)))) (alength as))
-    false))
+  (Arrays/equals as bs))
 
 (defmacro debug
   [& body]
