@@ -50,6 +50,12 @@ return a map containing those pairs. "
           (recur (.readLine rdr) (merge retval {k v})))
         retval))))
 
+(defn array=
+  [as bs]
+  (if (= (alength as) (alength bs))
+    (= (count (take-while identity (map = (seq as) (seq bs)))) (alength as))
+    false))
+
 (defmacro debug
   [& body]
   `(let [val# ~@body]
