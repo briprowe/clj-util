@@ -1,8 +1,12 @@
 (ns clj-util.core
   (:require [clojure.java.io :as io]
-            [clojure.string :as str])
+            [clojure.string :as str]
+            [clojure.inspect :as inspect])
   (:import [java.util Arrays]))
 
+(defn inspect-ns
+  [ns]
+  (inspect/inspect (into {} (map (fn [[k v]] [k (deref v)]) (ns-interns ns)))))
 
 (defn encode-utf8
   [str]
