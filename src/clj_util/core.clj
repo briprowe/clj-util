@@ -4,6 +4,12 @@
             [clojure.inspect :as inspect])
   (:import [java.util Arrays]))
 
+(defmacro debug
+  [form]
+  `(let [res# ~form]
+     (println '~form "=>" res#)
+     res#))
+
 (defn inspect-ns
   [ns]
   (inspect/inspect (into {} (map (fn [[k v]] [k (deref v)]) (ns-interns ns)))))
@@ -58,9 +64,3 @@ return a map containing those pairs. "
 (defn array=
   [as bs]
   (Arrays/equals as bs))
-
-(defmacro debug
-  [& body]
-  `(let [val# ~@body]
-     (println val#)
-     val#))
